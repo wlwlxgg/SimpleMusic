@@ -19,6 +19,12 @@
         <!--音乐播放界面-->
         <activity android:name=".activity.PlayActivity">
 
+
+        </activity>
+
+        <!--搜索界面-->
+        <activity android:name=".activity.SearchActivity">
+
         </activity>
     </application>
 

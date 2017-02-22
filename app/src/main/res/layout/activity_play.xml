@@ -21,7 +21,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:src="@mipmap/search" />
+            android:src="@mipmap/search"
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/music_name"

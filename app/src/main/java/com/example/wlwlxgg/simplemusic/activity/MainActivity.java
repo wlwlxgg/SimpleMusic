@@ -6,18 +6,18 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.example.wlwlxgg.simplemusic.R;
 import com.example.wlwlxgg.simplemusic.adapter.MyGridViewAdapter;
 import com.example.wlwlxgg.simplemusic.domain.PlayList;
+import com.example.wlwlxgg.simplemusic.view.MyGridView;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
-    GridView gv1, gv2;
+    MyGridView gv1, gv2;
     List<PlayList> mList;
     LinearLayout play;
     View myScrollView;
@@ -30,14 +30,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initView();
     }
     private void initView() {
-        gv1 = (GridView) findViewById(R.id.gv_1);
-        gv2 = (GridView) findViewById(R.id.gv_2);
+        gv1 = (MyGridView) findViewById(R.id.gv_1);
+        gv2 = (MyGridView) findViewById(R.id.gv_2);
         mList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PlayList playList = new PlayList();
 //            playList.setCover(R.mipmap.cover);
             playList.setCover_name("Heaven");
-            playList.setCover_num(60);
+            playList.setCover_num(i*10);
             mList.add(playList);
         }
 
@@ -45,9 +45,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         int length = 100;
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        float density = dm.density;
-        int gridviewWidth = (int) (size * (length + 4) * density);
-        int itemWidth = (int) (length * density);
+        int density = (int)dm.density;
+        int gridviewWidth = size * (length + 14) * density;
+        int itemWidth = length * density;
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);

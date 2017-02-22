@@ -116,14 +116,14 @@
                         android:scrollbars="none">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:layout_margin="10dp">
 
-                            <GridView
+                            <com.example.wlwlxgg.simplemusic.view.MyGridView
                                 android:id="@+id/gv_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:divider="@null"
                                 android:horizontalSpacing="0dp"
                                 android:listSelector="@android:color/transparent"
@@ -131,7 +131,7 @@
                                 android:scrollbars="none"
                                 android:stretchMode="spacingWidthUniform">
 
-                            </GridView>
+                            </com.example.wlwlxgg.simplemusic.view.MyGridView>
                         </LinearLayout>
                     </HorizontalScrollView>
 
@@ -156,7 +156,7 @@
                             android:layout_height="fill_parent"
                             android:layout_margin="10dp">
 
-                            <GridView
+                            <com.example.wlwlxgg.simplemusic.view.MyGridView
                                 android:id="@+id/gv_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                                 android:scrollbars="none"
                                 android:stretchMode="spacingWidthUniform">
 
-                            </GridView>
+                            </com.example.wlwlxgg.simplemusic.view.MyGridView>
                         </LinearLayout>
                     </HorizontalScrollView>
 
