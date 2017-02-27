@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
-    MyGridView gv1, gv2;
+    MyGridView gv1;
+    MyGridView gv2;
     List<PlayList> mList;
     LinearLayout play;
     View myScrollView;
@@ -30,8 +31,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initView();
     }
     private void initView() {
+
         gv1 = (MyGridView) findViewById(R.id.gv_1);
         gv2 = (MyGridView) findViewById(R.id.gv_2);
+
         mList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PlayList playList = new PlayList();

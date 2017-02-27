@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/src/main/assets"/><source path="/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/src/debug/assets"/></dataSet></merger>

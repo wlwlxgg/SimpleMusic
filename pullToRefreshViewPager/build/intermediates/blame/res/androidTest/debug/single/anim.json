@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/androidTest/debug/anim/slide_out_to_bottom.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/anim/slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/androidTest/debug/anim/slide_in_from_bottom.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/anim/slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/androidTest/debug/anim/slide_in_from_top.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/anim/slide_in_from_top.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/androidTest/debug/anim/slide_out_to_top.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/anim/slide_out_to_top.xml"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/release/layout/need_this_for_maven.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/src/main/res/layout/need_this_for_maven.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/release/layout/pull_to_refresh_header_vertical.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/layout/pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/res/merged/release/layout/pull_to_refresh_header_horizontal.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshViewPager/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/layout/pull_to_refresh_header_horizontal.xml"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshListFragment/build/intermediates/res/merged/androidTest/debug/drawable/indicator_bg_top.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshListFragment/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/drawable/indicator_bg_top.xml"
+    },
+    {
+        "merged": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshListFragment/build/intermediates/res/merged/androidTest/debug/drawable/indicator_bg_bottom.xml",
+        "source": "/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/pullToRefreshListFragment/build/intermediates/exploded-aar/SimpleMusic/PullToRefresh-library/unspecified/res/drawable/indicator_bg_bottom.xml"
+    }
+]

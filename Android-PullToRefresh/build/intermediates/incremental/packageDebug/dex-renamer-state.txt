@@ -1,0 +1,7 @@
+#Mon Feb 27 14:42:15 CST 2017
+base.0=/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/Android-PullToRefresh/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0a11a902438f49bb6a00f450db061275e8e6f676
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/Android-PullToRefresh/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8cb8c083f613e9872e8400ad2fc786d6c49fe3bd/classes.dex
+base.1=/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/Android-PullToRefresh/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8cb8c083f613e9872e8400ad2fc786d6c49fe3bd
+file.0=/Users/wlwlxgg/AndroidStudioProjects/SimpleMusic/Android-PullToRefresh/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0a11a902438f49bb6a00f450db061275e8e6f676/classes.dex

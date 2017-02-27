@@ -26,6 +26,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void initView() {
+
         search = (ImageView)findViewById(R.id.search);
         search.setOnClickListener(this);
     }
