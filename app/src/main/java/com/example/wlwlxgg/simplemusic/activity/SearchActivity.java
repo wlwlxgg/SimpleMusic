@@ -1,26 +1,34 @@
 package com.example.wlwlxgg.simplemusic.activity;
 
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.wlwlxgg.simplemusic.R;
 import com.example.wlwlxgg.simplemusic.adapter.MyListViewAdapter;
+import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
+import com.example.wlwlxgg.simplemusic.net.GetMusicRequest;
 import com.example.wlwlxgg.simplemusic.net.SearchRequest;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jaeger.library.StatusBarUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +47,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private List<SearchResult.ResultBean.SongInfoBean.SongListBean> mList;
     private MyListViewAdapter adapter;
     private int page_num;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    /**
+     * 搜索歌曲接口
+     */
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://tingapi.ting.baidu.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -46,6 +58,34 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     SearchRequest searchRequset = retrofit.create(SearchRequest.class);
     Call<SearchResult> call;
 
+    /**
+     * 获取歌曲信息接口
+     */
+    Retrofit musicInfo = new Retrofit.Builder()
+            .baseUrl("http://ting.baidu.com/data/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    GetMusicRequest getMusicRequest = musicInfo.create(GetMusicRequest.class);
+    Call<MusicInfo> musicInfoCall;
+
+
+    android.os.Handler handler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    Bundle bundle = msg.getData();
+                    String songLink = bundle.getString("songLink");
+                    try {
+                        mediaPlayer.setDataSource(songLink);
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +112,31 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 new GetDataTask().execute();
+            }
+        });
+        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String song_id = mList.get(position - 1).getSong_id();
+                mediaPlayer.release();
+                musicInfoCall = getMusicRequest.getMusicRequest(song_id);
+                musicInfoCall.enqueue(new Callback<MusicInfo>() {
+                    @Override
+                    public void onResponse(Call<MusicInfo> call, Response<MusicInfo> response) {
+                        String songLink = response.body().getData().getSongList().get(0).getSongLink();
+                        Message message = Message.obtain();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("songLink", songLink);
+                        message.setData(bundle);
+                        message.what = 1;
+                        handler.sendMessage(message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<MusicInfo> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
@@ -102,18 +167,30 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     private void getData(Call<SearchResult> call, final int page_num) {
         String Page_num = Integer.toString(page_num);
-        call = searchRequset.getSearchRequest("android",
-                "5.6.5.0", "baidu.ting.search.merge", "json", edit.getText().toString(), Page_num, "20", "-1", "0", "1");
+        Map<String, String> map = new HashMap<>();
+        map.put("from", "android");
+        map.put("version", "5.6.5.0");
+        map.put("method", "baidu.ting.search.merge");
+        map.put("format", "json");
+        map.put("query", edit.getText().toString());
+        map.put("page_no", Page_num);
+        map.put("page_size", "20");
+        map.put("type", "-1");
+        map.put("data_source", "0");
+        map.put("use_cluster", "1");
+        call = searchRequset.getSearchRequest(map);
         call.enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 if (page_num == 0)
                     mList.clear();
-                for (int i = 0; i < 20; i++) {
-                    if (response.body() != null && response.body().getResult().getSong_info() != null)
-                        mList.add(response.body().getResult().getSong_info().getSong_list().get(i));
+                if (response.body().getResult().getSong_info()!= null) {
+                    for (int i = 0; i < response.body().getResult().getSong_info().getSong_list().size(); i++) {
+                        if (response.body() != null && response.body().getResult().getSong_info() != null)
+                            mList.add(response.body().getResult().getSong_info().getSong_list().get(i));
+                    }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -133,6 +210,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
+
+
 
     private class GetDataTask extends AsyncTask{
         @Override
