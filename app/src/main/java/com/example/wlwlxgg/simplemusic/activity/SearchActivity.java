@@ -1,5 +1,6 @@
 package com.example.wlwlxgg.simplemusic.activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private List<SearchResult.ResultBean.SongInfoBean.SongListBean> mList;
     private MyListViewAdapter adapter;
     private int page_num;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MusicInfo mMusicInfo;
     /**
      * 搜索歌曲接口
      */
@@ -75,14 +76,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             switch (msg.what) {
                 case 1:
                     Bundle bundle = msg.getData();
-                    String songLink = bundle.getString("songLink");
-                    try {
-                        mediaPlayer.setDataSource(songLink);
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    }catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Intent intent = new Intent();
+                    intent.putExtras(bundle);
+                    intent.setClass(SearchActivity.this, PlayActivity.class);
+                    startActivity(intent);
+                    SearchActivity.this.finish();
             }
         }
     };
@@ -118,15 +116,14 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String song_id = mList.get(position - 1).getSong_id();
-                mediaPlayer.release();
                 musicInfoCall = getMusicRequest.getMusicRequest(song_id);
                 musicInfoCall.enqueue(new Callback<MusicInfo>() {
                     @Override
                     public void onResponse(Call<MusicInfo> call, Response<MusicInfo> response) {
-                        String songLink = response.body().getData().getSongList().get(0).getSongLink();
+                        mMusicInfo = response.body();
                         Message message = Message.obtain();
                         Bundle bundle = new Bundle();
-                        bundle.putString("songLink", songLink);
+                        bundle.putSerializable("musicInfo", mMusicInfo);
                         message.setData(bundle);
                         message.what = 1;
                         handler.sendMessage(message);

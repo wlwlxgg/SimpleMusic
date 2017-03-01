@@ -28,6 +28,10 @@
         <activity android:name=".activity.SearchActivity">
 
         </activity>
+
+        <service android:name=".service.DownloadService">
+
+        </service>
     </application>
 
 </manifest>
