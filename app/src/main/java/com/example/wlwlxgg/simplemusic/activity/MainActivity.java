@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.example.wlwlxgg.simplemusic.R;
 import com.example.wlwlxgg.simplemusic.adapter.MyGridViewAdapter;
 import com.example.wlwlxgg.simplemusic.domain.PlayList;
+import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
 import com.example.wlwlxgg.simplemusic.view.MyGridView;
 import com.jaeger.library.StatusBarUtil;
 
@@ -22,12 +23,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     List<PlayList> mList;
     LinearLayout play;
     View myScrollView;
+    private PrefsUtil prefsUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myScrollView = findViewById(R.id.mViewNeedOffset);
         StatusBarUtil.setTranslucentForImageView(MainActivity.this, 0, myScrollView);
+        prefsUtil = PrefsUtil.getInstance();
         initView();
     }
     private void initView() {

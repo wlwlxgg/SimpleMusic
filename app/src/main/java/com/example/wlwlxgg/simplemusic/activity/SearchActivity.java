@@ -21,6 +21,7 @@ import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
 import com.example.wlwlxgg.simplemusic.net.GetMusicRequest;
 import com.example.wlwlxgg.simplemusic.net.SearchRequest;
+import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jaeger.library.StatusBarUtil;
@@ -49,6 +50,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private MyListViewAdapter adapter;
     private int page_num;
     private MusicInfo mMusicInfo;
+    private PrefsUtil prefsUtil;
     /**
      * 搜索歌曲接口
      */
@@ -89,6 +91,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        prefsUtil = PrefsUtil.getInstance();
         StatusBarUtil.setColor(SearchActivity.this, 0xffffff, 0);
         initView();
     }
@@ -121,6 +124,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onResponse(Call<MusicInfo> call, Response<MusicInfo> response) {
                         mMusicInfo = response.body();
+                        prefsUtil.putObject("MusicInfo", mMusicInfo);
+                        prefsUtil.putInt("isRestart", 0);
                         Message message = Message.obtain();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("musicInfo", mMusicInfo);
@@ -208,7 +213,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SearchActivity.this, PlayActivity.class);
+        startActivity(intent);
+        this.finish();
+        super.onBackPressed();
+    }
 
     private class GetDataTask extends AsyncTask{
         @Override

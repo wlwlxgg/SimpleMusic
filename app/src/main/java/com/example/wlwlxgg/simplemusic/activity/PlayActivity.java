@@ -1,22 +1,20 @@
 package com.example.wlwlxgg.simplemusic.activity;
 
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wlwlxgg.simplemusic.R;
+import com.example.wlwlxgg.simplemusic.constant.MusicMsg;
 import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
-import com.example.wlwlxgg.simplemusic.service.DownloadService;
+import com.example.wlwlxgg.simplemusic.service.MusicPlayService;
+import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
 import com.jaeger.library.StatusBarUtil;
-
-import java.io.IOException;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by wlwlxgg on 2017/2/7.
@@ -27,18 +25,9 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
     private TextView music_name;
     private ImageView down, album, play_way, last, play, next, download;
     private MusicInfo musicInfo;
-    private DownloadService.MyBinder myBinder;
-    private ServiceConnection connection = new ServiceConnection() {
+    private int isPlay = 0;
+    private PrefsUtil prefsUtil = null;
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            myBinder = (DownloadService.MyBinder) service;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +35,7 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_play);
         StatusBarUtil.setColor(PlayActivity.this, 0xffffff, 0);
         initView();
+        initData();
     }
 
     private void initView() {
@@ -68,15 +58,69 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        if (getIntent().getExtras()!= null) {
-            Intent intent = new Intent();
-            intent.putExtras(getIntent().getExtras());
-            intent.setClass(PlayActivity.this, DownloadService.class);
-            bindService(intent, connection, BIND_AUTO_CREATE);
+        prefsUtil = PrefsUtil.getInstance();
+        isPlay = prefsUtil.getInt("isPlay");
+        //从搜索界面返回
+        if (getIntent().getExtras() != null) {
+            prefsUtil.putInt("isPlay", 1);
             musicInfo = (MusicInfo) getIntent().getExtras().getSerializable("musicInfo");
             music_name.setText(musicInfo.getData().getSongList().get(0).getSongName());
             play.setImageResource(R.mipmap.pause);
+            getImage(album);
+            Intent intent = new Intent(PlayActivity.this, MusicPlayService.class);
+            intent.putExtra("Msg", MusicMsg.PLAY_MSG);
+            intent.putExtra("Url", musicInfo.getData().getSongList().get(0).getSongLink());
+            startService(intent);
         }
+        //非搜索界面返回
+        else {
+            if (prefsUtil.getObject("MusicInfo", MusicInfo.class) != null) {
+                musicInfo = prefsUtil.getObject("MusicInfo", MusicInfo.class);
+                //是否重启应用
+                if (prefsUtil.getInt("isRestart") == 1) {
+                    prefsUtil.putInt("isRestart", 0);
+                    music_name.setText(musicInfo.getData().getSongList().get(0).getSongName());
+                    play.setImageResource(R.mipmap.play_play);
+                    getImage(album);
+                    prefsUtil.putInt("isPlay", 3);
+                }
+                //从其他页面进入
+                else {
+                    switch (isPlay) {
+                        case 1:
+                            music_name.setText(musicInfo.getData().getSongList().get(0).getSongName());
+                            play.setImageResource(R.mipmap.play_play);
+                            getImage(album);
+                            break;
+                        case 2:
+                            music_name.setText(musicInfo.getData().getSongList().get(0).getSongName());
+                            play.setImageResource(R.mipmap.pause);
+                            getImage(album);
+                            break;
+                        case 3:
+                            music_name.setText(musicInfo.getData().getSongList().get(0).getSongName());
+                            play.setImageResource(R.mipmap.play_play);
+                            getImage(album);
+                            break;
+                    }
+                }
+            } else
+                prefsUtil.putInt("isPlay", 0);
+        }
+    }
+
+    private void getImage(ImageView imageView) {
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.mipmap.album)
+                .showImageOnFail(R.mipmap.album)
+                .showImageOnLoading(R.mipmap.album)
+                .cacheInMemory(false)
+                .cacheOnDisk(true)
+                .build();
+        ImageLoader.getInstance().displayImage(
+                musicInfo.getData().getSongList().get(0).getSongPicRadio(),
+                imageView,
+                options);
     }
 
     @Override
@@ -84,38 +128,49 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.search:
                 startActivity(new Intent(PlayActivity.this, SearchActivity.class));
+                PlayActivity.this.finish();
                 break;
             case R.id.play:
-                if (myBinder.isPlaying()) {
-                    play.setImageResource(R.mipmap.play_play);
-                    myBinder.pauseMusic();
-                } else {
+                isPlay = prefsUtil.getInt("isPlay");
+                if (isPlay == 1) {
                     play.setImageResource(R.mipmap.pause);
-                    myBinder.startMusic();
+                    Intent intent = new Intent(PlayActivity.this, MusicPlayService.class);
+                    intent.putExtra("Msg", MusicMsg.CONTINUE_MSG);
+                    intent.putExtra("Url", musicInfo.getData().getSongList().get(0).getSongLink());
+                    startService(intent);
+                } else if (isPlay == 2) {
+                    play.setImageResource(R.mipmap.play_play);
+                    Intent intent = new Intent(PlayActivity.this, MusicPlayService.class);
+                    intent.putExtra("Msg", MusicMsg.PAUSE_MSG);
+                    intent.putExtra("Url", musicInfo.getData().getSongList().get(0).getSongLink());
+                    startService(intent);
+                } else if (isPlay == 3) {
+                    play.setImageResource(R.mipmap.pause);
+                    Intent intent = new Intent(PlayActivity.this, MusicPlayService.class);
+                    intent.putExtra("Msg", MusicMsg.PLAY_MSG);
+                    intent.putExtra("Url", musicInfo.getData().getSongList().get(0).getSongLink());
+                    startService(intent);
                 }
             case R.id.download:
                 Intent intent = new Intent();
                 intent.putExtra("musicInfo", musicInfo);
-                intent.setClass(this, DownloadService.class);
+                intent.setClass(this, MusicPlayService.class);
                 startService(intent);
         }
     }
 
     @Override
     protected void onResume() {
-        initData();
         super.onResume();
     }
 
     @Override
     protected void onRestart() {
-        myBinder.releaseMusic();
         super.onRestart();
     }
 
     @Override
     protected void onDestroy() {
-        myBinder.releaseMusic();
         super.onDestroy();
     }
 
@@ -123,4 +178,5 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
     protected void setStatusBar() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
+
 }
