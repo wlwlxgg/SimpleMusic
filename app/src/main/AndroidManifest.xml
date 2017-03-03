@@ -30,6 +30,12 @@
 
         </activity>
 
+        <!--下载界面-->
+        <activity android:name=".activity.DownloadActivity">
+
+        </activity>
+
+        <!--音乐播放服务-->
         <service android:name=".service.MusicPlayService">
 
         </service>

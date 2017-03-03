@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white"
+        android:text="下载"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/black"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/is_doing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:text="正在下载"/>
+        <View
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"/>
+        <Button
+            android:id="@+id/is_down"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:text="已完成"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:id="@+id/is_doing_view"
+            android:layout_width="0dp"
+            android:layout_height="0.1dp"
+            android:layout_weight="0.5"
+            android:background="@android:color/black"
+            android:visibility="invisible"/>
+        <View
+            android:id="@+id/is_down_view"
+            android:layout_width="0dp"
+            android:layout_height="0.1dp"
+            android:layout_weight="0.5"
+            android:background="@android:color/black"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/no_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="没有任务"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"/>
+    <ListView
+        android:id="@+id/is_doing_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+    <ListView
+        android:id="@+id/is_down_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+</LinearLayout>

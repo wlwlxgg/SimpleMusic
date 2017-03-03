@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     List<PlayList> mList;
     LinearLayout play;
     View myScrollView;
+    LinearLayout download;
     private PrefsUtil prefsUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         gv1 = (MyGridView) findViewById(R.id.gv_1);
         gv2 = (MyGridView) findViewById(R.id.gv_2);
-
+        download = (LinearLayout) findViewById(R.id.download);
+        download.setOnClickListener(this);
         mList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PlayList playList = new PlayList();
@@ -85,6 +87,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case R.id.play:
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.download:
+                Intent intent2 = new Intent(MainActivity.this, DownloadActivity.class);
+                startActivity(intent2);
                 break;
         }
     }
