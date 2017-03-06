@@ -3,6 +3,7 @@ package com.example.wlwlxgg.simplemusic.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.wlwlxgg.simplemusic.db.DataBaseOperation;
 import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -19,11 +20,13 @@ import java.io.File;
 public class MyApplication extends Application {
     private static Context context;
     private PrefsUtil prefsUtil;
+    private DataBaseOperation dataBaseOperation;
     @Override
     public void onCreate() {
         PrefsUtil.init(getApplicationContext(), "SimpleMusic", Context.MODE_PRIVATE);
         context = getApplicationContext();
         initData();
+        initDataBase();
         super.onCreate();
     }
 
@@ -33,6 +36,15 @@ public class MyApplication extends Application {
         //判断应用是否重启。
         prefsUtil = PrefsUtil.getInstance();
         prefsUtil.putInt("isRestart", 1);
+    }
+
+    /**
+     * 打开数据库
+     */
+
+    private void initDataBase() {
+        dataBaseOperation = new DataBaseOperation(this);
+        dataBaseOperation.OpenDbConnect();
     }
 
     /**

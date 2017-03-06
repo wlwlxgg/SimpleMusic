@@ -39,6 +39,16 @@ public class PrefsUtil {
         return this.prefs.getInt(key, 0);
     }
 
+    public PrefsUtil putString(String key, String value) {
+        editor.putString(key, value);
+        editor.commit();
+        return this;
+    }
+
+    public String getString(String key) {
+        return this.prefs.getString(key, null);
+    }
+
     /**
      * 放入复杂对象
      * @param key
