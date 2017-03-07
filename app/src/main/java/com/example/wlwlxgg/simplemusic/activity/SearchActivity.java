@@ -1,7 +1,6 @@
 package com.example.wlwlxgg.simplemusic.activity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
@@ -20,24 +19,22 @@ import com.example.wlwlxgg.simplemusic.adapter.MyListViewAdapter;
 import com.example.wlwlxgg.simplemusic.db.dao.UserDao;
 import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
-import com.example.wlwlxgg.simplemusic.net.GetMusicRequest;
-import com.example.wlwlxgg.simplemusic.net.SearchRequest;
+import com.example.wlwlxgg.simplemusic.net.HttpManager;
 import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jaeger.library.StatusBarUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HTTP;
 
 /**
  * Created by wlwlxgg on 2017/2/22.
@@ -53,26 +50,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private MusicInfo mMusicInfo;
     private PrefsUtil prefsUtil;
     private UserDao dao;
-    /**
-     * 搜索歌曲接口
-     */
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://tingapi.ting.baidu.com/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    SearchRequest searchRequset = retrofit.create(SearchRequest.class);
-    Call<SearchResult> call;
-
-    /**
-     * 获取歌曲信息接口
-     */
-    Retrofit musicInfo = new Retrofit.Builder()
-            .baseUrl("http://ting.baidu.com/data/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    GetMusicRequest getMusicRequest = musicInfo.create(GetMusicRequest.class);
-    Call<MusicInfo> musicInfoCall;
-
 
     android.os.Handler handler = new android.os.Handler() {
         @Override
@@ -122,8 +99,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String song_id = mList.get(position - 1).getSong_id();
-                musicInfoCall = getMusicRequest.getMusicRequest(song_id);
-                musicInfoCall.enqueue(new Callback<MusicInfo>() {
+                HttpManager.getMusicRequest(song_id).enqueue(new Callback<MusicInfo>() {
                     @Override
                     public void onResponse(Call<MusicInfo> call, Response<MusicInfo> response) {
                         mMusicInfo = response.body();
@@ -163,7 +139,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         public void afterTextChanged(Editable s) {
             if (!TextUtils.isEmpty(s.toString())) {
                 page_num = 0;
-                getData(call, page_num);
+                getData(page_num);
             }else {
                 mList.clear();
                 adapter.notifyDataSetChanged();
@@ -171,9 +147,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         }
     };
 
-    private void getData(Call<SearchResult> call, final int page_num) {
+    private void getData(final int page_num) {
         String Page_num = Integer.toString(page_num);
-        Map<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("from", "android");
         map.put("version", "5.6.5.0");
         map.put("method", "baidu.ting.search.merge");
@@ -184,8 +160,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         map.put("type", "-1");
         map.put("data_source", "0");
         map.put("use_cluster", "1");
-        call = searchRequset.getSearchRequest(map);
-        call.enqueue(new Callback<SearchResult>() {
+        HttpManager.getSearchRequest(map).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 if (page_num == 0)
@@ -233,7 +208,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         protected void onPostExecute(Object o) {
-            getData(call, page_num++);
+            getData(page_num++);
             list_view.onRefreshComplete();
         }
     }
