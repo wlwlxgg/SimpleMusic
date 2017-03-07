@@ -64,17 +64,15 @@ public class ConstantDb {
      */
     public static final String CREATE_TABLE = "create table if not exists "
             + TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + SONG_ID + "TEXT,"
-            + IS_DOWNLOAD + "TEXT,"
-            + SONG_NAME + "TEXT,"
-            + SONG_LINK + "TEXT,"
-            + LRC_LINK + "TEXT,"
-            + SINGER_NAME + "TEXT,"
-            + ALBUM_NAME + "TEXT,"
-            + ALBUM_LINK + "TEXT)";
-
-
-
-
-
+            + SONG_ID + " TEXT,"
+            + IS_DOWNLOAD + " TEXT,"
+            + SONG_NAME + " TEXT,"
+            + SONG_LINK + " TEXT,"
+            + LRC_LINK + " TEXT,"
+            + SINGER_NAME + " TEXT,"
+            + ALBUM_NAME + " TEXT,"
+            + ALBUM_LINK + " TEXT,"
+            + USER_NAME + " TEXT,"
+            + SONG_PATH + " TEXT,"
+            + DOWNLOAD_PROGRESS + " TEXT)";
 }

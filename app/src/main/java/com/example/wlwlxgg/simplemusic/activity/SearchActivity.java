@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.wlwlxgg.simplemusic.R;
 import com.example.wlwlxgg.simplemusic.adapter.MyListViewAdapter;
+import com.example.wlwlxgg.simplemusic.db.dao.UserDao;
 import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
 import com.example.wlwlxgg.simplemusic.net.GetMusicRequest;
@@ -51,6 +52,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private int page_num;
     private MusicInfo mMusicInfo;
     private PrefsUtil prefsUtil;
+    private UserDao dao;
     /**
      * 搜索歌曲接口
      */
@@ -92,6 +94,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         prefsUtil = PrefsUtil.getInstance();
+        dao = new UserDao(this);
         StatusBarUtil.setColor(SearchActivity.this, 0xffffff, 0);
         initView();
     }
@@ -126,6 +129,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                         mMusicInfo = response.body();
                         prefsUtil.putObject("MusicInfo", mMusicInfo);
                         prefsUtil.putInt("isRestart", 0);
+                        dao.saveMusicInfo(mMusicInfo);
                         Message message = Message.obtain();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("musicInfo", mMusicInfo);

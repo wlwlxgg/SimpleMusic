@@ -41,6 +41,11 @@
 
         </activity>
 
+        <!--历史界面-->
+        <activity android:name=".activity.HistoryActivity">
+
+        </activity>
+
         <!--音乐播放服务-->
         <service android:name=".service.MusicPlayService">
 

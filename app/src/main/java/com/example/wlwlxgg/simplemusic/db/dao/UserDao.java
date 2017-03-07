@@ -2,12 +2,16 @@ package com.example.wlwlxgg.simplemusic.db.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.example.wlwlxgg.simplemusic.db.ConstantDb;
 import com.example.wlwlxgg.simplemusic.db.DataBaseOperation;
 import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
+import com.example.wlwlxgg.simplemusic.domain.NativeInfo;
 import com.example.wlwlxgg.simplemusic.util.LogUtil;
 import com.example.wlwlxgg.simplemusic.util.PrefsUtil;
+
+import java.util.ArrayList;
 
 /**
  * Created by wlwlxgg on 2017/3/6.
@@ -34,7 +38,7 @@ public class UserDao {
         values.put(ConstantDb.SINGER_NAME, mi.getArtistName());
         values.put(ConstantDb.SONG_ID, mi.getSongId());
         values.put(ConstantDb.SONG_LINK, mi.getSongLink());
-        values.put(ConstantDb.SINGER_NAME, mi.getSongName());
+        values.put(ConstantDb.SONG_NAME, mi.getSongName());
         values.put(ConstantDb.USER_NAME, PrefsUtil.getInstance().getString("userName"));
         values.put(ConstantDb.IS_DOWNLOAD, "0");
         values.put(ConstantDb.SONG_PATH, "0");
@@ -57,6 +61,38 @@ public class UserDao {
                 ConstantDb.USER_NAME + " = ? AND " + ConstantDb.SONG_ID + " = ?",
                 new String[]{PrefsUtil.getInstance().getString("userName"), songId});
         LogUtil.i("MSG", "数据更新成功");
+    }
+
+    /**
+     * 获取歌曲信息列表
+     */
+    public ArrayList<NativeInfo> getMusicInfo(String userName) {
+        ArrayList<NativeInfo> mList = new ArrayList<NativeInfo>();
+        DataBaseOperation dataBaseOperation = new DataBaseOperation(mContext);
+        NativeInfo info = null;
+        String sql = "select * from " + ConstantDb.TABLE_NAME + " WHERE "
+                + ConstantDb.USER_NAME + " = ?";
+        Cursor cursor = dataBaseOperation.rawQuery(sql, new String[]{userName});
+        while (cursor != null && cursor.moveToNext()) {
+            info = new NativeInfo();
+            info.setAlbumLink(cursor.getString(cursor.getColumnIndex(ConstantDb.ALBUM_LINK)));
+            info.setAlbumName(cursor.getString(cursor.getColumnIndex(ConstantDb.ALBUM_NAME)));
+            info.setDownloadProgress(cursor.getString(cursor.getColumnIndex(ConstantDb.DOWNLOAD_PROGRESS)));
+            info.setIsDownload(cursor.getString(cursor.getColumnIndex(ConstantDb.IS_DOWNLOAD)));
+            info.setLrcLink(cursor.getString(cursor.getColumnIndex(ConstantDb.LRC_LINK)));
+            info.setSingerName(cursor.getString(cursor.getColumnIndex(ConstantDb.SINGER_NAME)));
+            info.setSongId(cursor.getString(cursor.getColumnIndex(ConstantDb.SONG_ID)));
+            info.setSongLink(cursor.getString(cursor.getColumnIndex(ConstantDb.SONG_LINK)));
+            info.setSongPath(cursor.getString(cursor.getColumnIndex(ConstantDb.SONG_PATH)));
+            info.setUserName(cursor.getString(cursor.getColumnIndex(ConstantDb.USER_NAME)));
+            info.setSongName(cursor.getString(cursor.getColumnIndex(ConstantDb.SONG_NAME)));
+            mList.add(info);
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        LogUtil.i("MSG", "获取歌曲信息列表成功");
+        return mList;
     }
 
 }

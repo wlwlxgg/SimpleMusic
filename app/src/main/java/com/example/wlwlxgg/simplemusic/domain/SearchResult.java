@@ -77,10 +77,6 @@ public class SearchResult implements Serializable {
         }
 
         public static class SongInfoBean {
-            /**
-             * total : 69
-             * song_list : [{"content":"","copy_type":"1","toneid":"0","info":"","all_rate":"320,128,flac,256,192,64,24","resource_type":2,"relate_status":0,"has_mv_mobile":1,"song_id":"18401298","title":"七里香","ting_uid":"7994","author":"周杰伦","album_id":"18394691","album_title":"第五届百事音乐风云榜","is_first_publish":0,"havehigh":2,"charge":0,"has_mv":0,"learn":0,"song_source":"web","piao_id":"0","korean_bb_song":"0","resource_type_ext":"0","artist_id":"29","all_artist_id":"29","lrclink":"http://musicdata.baidu.com/data2/lrc/65094964/%E4%B8%83%E9%87%8C%E9%A6%99.lrc","data_source":0,"cluster_id":93119037},{"content":"","copy_type":"1","toneid":"600902000006889283","info":"","all_rate":"128,64,256,192,320,flac,24","resource_type":2,"relate_status":0,"has_mv_mobile":1,"song_id":"290466","title":"止战之殇.","ting_uid":"7994","author":"周杰伦","album_id":"67909","album_title":"","is_first_publish":0,"havehigh":2,"charge":0,"has_mv":1,"learn":1,"song_source":"web","piao_id":"0","korean_bb_song":"0","resource_type_ext":"0","artist_id":"29","all_artist_id":"29","lrclink":"http://musicdata.baidu.com/data2/lrc/13881596/%E6%AD%A2%E6%88%98%E4%B9%8B%E6%AE%87..lrc","data_source":0,"cluster_id":93304629}]
-             */
 
             private int total;
             private List<SongListBean> song_list;
@@ -102,37 +98,6 @@ public class SearchResult implements Serializable {
             }
 
             public static class SongListBean {
-                /**
-                 * content :
-                 * copy_type : 1
-                 * toneid : 0
-                 * info :
-                 * all_rate : 320,128,flac,256,192,64,24
-                 * resource_type : 2
-                 * relate_status : 0
-                 * has_mv_mobile : 1
-                 * song_id : 18401298
-                 * title : 七里香
-                 * ting_uid : 7994
-                 * author : 周杰伦
-                 * album_id : 18394691
-                 * album_title : 第五届百事音乐风云榜
-                 * is_first_publish : 0
-                 * havehigh : 2
-                 * charge : 0
-                 * has_mv : 0
-                 * learn : 0
-                 * song_source : web
-                 * piao_id : 0
-                 * korean_bb_song : 0
-                 * resource_type_ext : 0
-                 * artist_id : 29
-                 * all_artist_id : 29
-                 * lrclink : http://musicdata.baidu.com/data2/lrc/65094964/%E4%B8%83%E9%87%8C%E9%A6%99.lrc
-                 * data_source : 0
-                 * cluster_id : 93119037
-                 */
-
                 private String content;
                 private String copy_type;
                 private String toneid;
@@ -389,10 +354,6 @@ public class SearchResult implements Serializable {
         }
 
         public static class AlbumInfoBean {
-            /**
-             * total : 2
-             * album_list : [{"album_id":"67909","author":"周杰伦","hot":22412,"title":"<em>七里香<\/em>","artist_id":"29","all_artist_id":"29","company":"杰威尔JVR音乐有限公司","publishtime":"2004-08-03","album_desc":"周杰伦的新专辑在8月3日正式发行，这次引用了诗人席幕蓉名诗《<em>七里香<\/em>》作为新专辑名称，周杰伦以往每一次的专辑名称都给了歌迷许多想象空间，也给了大家许多惊叹号。这次也许并不令人惊喜。但是周杰伦自有说法：\u201c...","pic_small":"http://musicdata.baidu.com/data2/pic/115430825/115430825.jpg"},{"album_id":"183906","author":"周杰伦 ","hot":10799,"title":"<em>七里香<\/em>(台湾正式版)","artist_id":"29","all_artist_id":"29","company":"杰威尔JVR音乐有限公司","publishtime":"2004-08-03","album_desc":"周杰伦的新专辑在8月3日正式发行,这次引用了诗人席幕蓉名诗《<em>七里香<\/em>》作为新专辑名称,周杰伦以往每一次的专辑名称都给了歌迷许多想象空间,也给了大家许多惊叹号。这次也许并不令人惊喜。但是周杰伦自有说法：\u201c...","pic_small":"http://c.hiphotos.baidu.com/ting/pic/item/b8389b504fc2d562b542b1f8e51190ef76c66c58.jpg"}]
-             */
 
             private int total;
             private List<AlbumListBean> album_list;
@@ -414,18 +375,6 @@ public class SearchResult implements Serializable {
             }
 
             public static class AlbumListBean {
-                /**
-                 * album_id : 67909
-                 * author : 周杰伦
-                 * hot : 22412
-                 * title : <em>七里香</em>
-                 * artist_id : 29
-                 * all_artist_id : 29
-                 * company : 杰威尔JVR音乐有限公司
-                 * publishtime : 2004-08-03
-                 * album_desc : 周杰伦的新专辑在8月3日正式发行，这次引用了诗人席幕蓉名诗《<em>七里香</em>》作为新专辑名称，周杰伦以往每一次的专辑名称都给了歌迷许多想象空间，也给了大家许多惊叹号。这次也许并不令人惊喜。但是周杰伦自有说法：“...
-                 * pic_small : http://musicdata.baidu.com/data2/pic/115430825/115430825.jpg
-                 */
 
                 private String album_id;
                 private String author;

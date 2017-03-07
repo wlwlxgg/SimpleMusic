@@ -9,11 +9,6 @@ import java.util.List;
 
 public class MusicInfo implements Serializable {
 
-    /**
-     * errorCode : 22000
-     * data : {"xcode":"d822853a44ff4a842bbe645605115240","songList":[{"queryId":"7330614","songId":7330614,"songName":"千万个不愿意","artistId":"1224","artistName":"刘德华","albumId":7323700,"albumName":"来生缘","songPicSmall":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_90","songPicBig":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_150","songPicRadio":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_300","lrcLink":"http://musicdata.baidu.com/data2/lrc/240401440/240401440.lrc","version":"","copyType":0,"time":274,"linkCode":22000,"songLink":"http://yinyueshiting.baidu.com/data2/music/125625312/73306141488229261128.mp3?xcode=d822853a44ff4a849e9cdd6067ee2141","showLink":"http://yinyueshiting.baidu.com/data2/music/125625312/73306141488229261128.mp3?xcode=d822853a44ff4a849e9cdd6067ee2141","format":"mp3","rate":128,"size":4400306,"relateStatus":"0","resourceType":"0","source":"web"}]}
-     */
-
     private int errorCode;
     private DataBean data;
 
@@ -34,10 +29,6 @@ public class MusicInfo implements Serializable {
     }
 
     public static class DataBean implements Serializable {
-        /**
-         * xcode : d822853a44ff4a842bbe645605115240
-         * songList : [{"queryId":"7330614","songId":7330614,"songName":"千万个不愿意","artistId":"1224","artistName":"刘德华","albumId":7323700,"albumName":"来生缘","songPicSmall":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_90","songPicBig":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_150","songPicRadio":"http://musicdata.baidu.com/data2/pic/125625251/125625251.jpg@s_0,w_300","lrcLink":"http://musicdata.baidu.com/data2/lrc/240401440/240401440.lrc","version":"","copyType":0,"time":274,"linkCode":22000,"songLink":"http://yinyueshiting.baidu.com/data2/music/125625312/73306141488229261128.mp3?xcode=d822853a44ff4a849e9cdd6067ee2141","showLink":"http://yinyueshiting.baidu.com/data2/music/125625312/73306141488229261128.mp3?xcode=d822853a44ff4a849e9cdd6067ee2141","format":"mp3","rate":128,"size":4400306,"relateStatus":"0","resourceType":"0","source":"web"}]
-         */
 
         private String xcode;
         private List<SongListBean> songList;
