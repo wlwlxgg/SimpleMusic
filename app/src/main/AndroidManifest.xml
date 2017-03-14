@@ -46,6 +46,11 @@
 
         </activity>
 
+        <!--喜欢界面-->
+        <activity android:name=".activity.LikeActivity">
+
+        </activity>
+
         <!--音乐播放服务-->
         <service android:name=".service.MusicPlayService">
 

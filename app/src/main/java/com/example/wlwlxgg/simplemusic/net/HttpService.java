@@ -4,12 +4,14 @@ import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
 
 import java.util.HashMap;
-import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 
 /**
  * Created by wlwlxgg on 2017/3/7.
@@ -27,5 +29,10 @@ public interface HttpService {
      */
     @GET(URL.MUSICINFO)
     Call<MusicInfo> getMusicRequest(@Query("songIds") String songIds);
+    /**
+     * 下载歌曲接口
+     */
+    @GET
+    rx.Observable<ResponseBody> download(@Header("RANGE") String start, @Url String url);
 
 }

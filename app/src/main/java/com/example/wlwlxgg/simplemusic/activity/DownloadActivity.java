@@ -23,6 +23,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         initView();
     }
 
+
     private void initView() {
         is_doing = (Button) findViewById(R.id.is_doing);
         is_doing.setOnClickListener(this);

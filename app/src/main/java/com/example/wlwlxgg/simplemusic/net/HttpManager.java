@@ -1,15 +1,12 @@
 package com.example.wlwlxgg.simplemusic.net;
 
-import android.content.Context;
 
 import com.example.wlwlxgg.simplemusic.domain.MusicInfo;
 import com.example.wlwlxgg.simplemusic.domain.SearchResult;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
